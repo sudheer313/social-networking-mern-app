@@ -2,6 +2,7 @@ const User = require("../models/User");
 const { ApolloError, AuthenticationError } = require("apollo-server-express");
 const bcryptjs = require("bcryptjs");
 const { signToken } = require("../utils/auth");
+const Post = require("../models/Post");
 const resolvers = {
   Query: {
     helloWorld: (parent, args, context) => {
@@ -79,6 +80,23 @@ const resolvers = {
         email: user.email,
         token,
       };
+    },
+    addPost: async (parent, { title, description }, context) => {
+      if (context.user) {
+        try {
+          const post = await Post.create({
+            authorId: context.user._id,
+            title,
+            description,
+          });
+          return post;
+        } catch (error) {
+          throw new ApolloError(error.message);
+        }
+      }
+      throw new ApolloError(
+        "you are not authorised to create this resource, please authenticate"
+      );
     },
   },
 };
