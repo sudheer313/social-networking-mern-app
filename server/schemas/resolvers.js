@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const { ApolloError } = require("apollo-server-express");
+const { ApolloError, AuthenticationError } = require("apollo-server-express");
 const bcryptjs = require("bcryptjs");
 const { signToken } = require("../utils/auth");
 const resolvers = {
@@ -37,6 +37,29 @@ const resolvers = {
       } catch (error) {
         throw new ApolloError(error.message);
       }
+    },
+
+    login: async (_, { email, password }) => {
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new AuthenticationError("No user with this email found!");
+      }
+
+      // compare the incoming password with the hashed password
+      const isMatch = await bcryptjs.compare(password, user.password);
+      if (!isMatch) {
+        throw new AuthenticationError("Invalid password credintials");
+      }
+
+      //Generate Token
+      const token = signToken(user);
+
+      return {
+        _id: user.id,
+        username: user.username,
+        email: user.email,
+        token,
+      };
     },
   },
 };
