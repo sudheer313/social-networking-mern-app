@@ -12,6 +12,20 @@ const resolvers = {
         "you are not authorised to access this resource, please authenticate"
       );
     },
+    getAllUsers: async (parent, args) => {
+      try {
+        return await User.find();
+      } catch (error) {
+        throw new ApolloError("error.message");
+      }
+    },
+    getUser: async (parent, { userId }) => {
+      try {
+        return await User.findOne({ _id: userId });
+      } catch (error) {
+        throw new ApolloError(error.message);
+      }
+    },
   },
   Mutation: {
     registerUser: async (_, { username, email, password }) => {
