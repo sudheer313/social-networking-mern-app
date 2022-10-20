@@ -4,8 +4,13 @@ const bcryptjs = require("bcryptjs");
 const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
-    helloWorld: () => {
-      return "hello World";
+    helloWorld: (parent, args, context) => {
+      if (context.user) {
+        return "hello Wrorld";
+      }
+      throw new ApolloError(
+        "you are not authorised to access this resource, please authenticate"
+      );
     },
   },
   Mutation: {

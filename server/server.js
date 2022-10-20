@@ -4,6 +4,7 @@ require("dotenv").config();
 
 //db
 const { typeDefs, resolvers } = require("./schemas");
+const { authMiddleware } = require("./utils/auth");
 
 const db = require("./config/connection");
 
@@ -12,6 +13,7 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: authMiddleware,
 });
 
 app.use(express.urlencoded({ extended: false }));
