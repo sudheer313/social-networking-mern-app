@@ -14,6 +14,8 @@ const typeDefs = gql`
     authorId: ID!
     title: String!
     description: String!
+    likes: [String]!
+    dislikes: [String]!
   }
   type Query {
     helloWorld: String
@@ -26,6 +28,8 @@ const typeDefs = gql`
     registerUser(username: String!, email: String!, password: String!): User!
     login(email: String!, password: String!): User!
     addPost(title: String!, description: String!): Post!
+    likePost(postId: ID!): Boolean
+    dislikePost(postId: ID!): Boolean
   }
 `;
 

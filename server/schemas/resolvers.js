@@ -27,7 +27,7 @@ const resolvers = {
         throw new ApolloError(error.message);
       }
     },
-    getAllPosts: async (parent,args) => {
+    getAllPosts: async (parent, args) => {
       try {
         return await Post.find();
       } catch (error) {
@@ -111,6 +111,40 @@ const resolvers = {
       }
       throw new ApolloError(
         "you are not authorised to create this resource, please authenticate"
+      );
+    },
+    likePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        try {
+          const updatedPost = await Post.findByIdAndUpdate(postId, {
+            $addToSet: { likes: context.user._id },
+            $pull: { dislikes: context.user._id },
+          });
+          console.log(updatedPost);
+          return true;
+        } catch (error) {
+          throw new ApolloError(error.message);
+        }
+      }
+      throw new ApolloError(
+        "you are not authorised to like this post, please authenticate"
+      );
+    },
+    dislikePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        try {
+          const updatedPost = await Post.findByIdAndUpdate(postId, {
+            $addToSet: { dislikes: context.user._id },
+            $pull: { likes: context.user._id },
+          });
+          console.log(updatedPost);
+          return true;
+        } catch (error) {
+          throw new ApolloError(error.message);
+        }
+      }
+      throw new ApolloError(
+        "you are not authorised to dislike this post, please authenticate"
       );
     },
   },
