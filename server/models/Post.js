@@ -18,6 +18,8 @@ const postSchema = new Schema(
       required: [true, "description is required"],
       maxLength: [800, "Must be no more than 800 characters"],
     },
+   
+    
   },
   { timestamps: true }
 );

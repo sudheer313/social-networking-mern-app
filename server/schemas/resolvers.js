@@ -27,6 +27,21 @@ const resolvers = {
         throw new ApolloError(error.message);
       }
     },
+    getAllPosts: async (parent,args) => {
+      try {
+        return await Post.find();
+      } catch (error) {
+        throw new ApolloError("error.message");
+      }
+    },
+
+    getPost: async (_, { postId }) => {
+      try {
+        return await Post.findOne({ _id: postId });
+      } catch (error) {
+        throw new ApolloError(error.message);
+      }
+    },
   },
   Mutation: {
     registerUser: async (_, { username, email, password }) => {

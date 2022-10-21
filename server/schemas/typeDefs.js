@@ -19,11 +19,13 @@ const typeDefs = gql`
     helloWorld: String
     getAllUsers: [User]
     getUser(userId: ID!): User
+    getAllPosts: [Post]
+    getPost(postId: ID!): Post
   }
   type Mutation {
     registerUser(username: String!, email: String!, password: String!): User!
     login(email: String!, password: String!): User!
-    addPost(title:String!, description:String!):Post!
+    addPost(title: String!, description: String!): Post!
   }
 `;
 
