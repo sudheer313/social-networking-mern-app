@@ -147,6 +147,29 @@ const resolvers = {
         "you are not authorised to dislike this post, please authenticate"
       );
     },
+    deletePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        try {
+          const post = await Post.findById(postId);
+          if (!post) {
+            throw new ApolloError("post doesnot exists");
+          }
+          if (post.authorId == context.user._id) {
+            const deletePost = await Post.findByIdAndDelete(postId);
+            return deletePost;
+          }
+
+          throw new ApolloError(
+            "you are not authorised to delete this post,only owner can delete it"
+          );
+        } catch (error) {
+          throw new ApolloError(error.message);
+        }
+      }
+      throw new ApolloError(
+        "you are not authorised to delete this post, please authenticate"
+      );
+    },
   },
 };
 
