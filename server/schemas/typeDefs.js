@@ -23,6 +23,7 @@ const typeDefs = gql`
     getAllUsers: [User]
     getUser(userId: ID!): User
     getAllPosts: [Post]
+    getAllTrendingPosts:[Post]
     getPost(postId: ID!): Post
   }
   type Mutation {
@@ -32,6 +33,7 @@ const typeDefs = gql`
     deletePost(postId: ID!): Post!
     likePost(postId: ID!): Boolean
     dislikePost(postId: ID!): Boolean
+
   }
 `;
 

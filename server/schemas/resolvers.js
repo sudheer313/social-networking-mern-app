@@ -42,7 +42,17 @@ const resolvers = {
         throw new ApolloError(error.message);
       }
     },
+    getAllTrendingPosts: async (parent, args) => {
+      try {
+        return await Post.find().sort({ likesCount: -1 });
+      } catch (error) {
+        throw new ApolloError("error.message");
+      }
+    },
+  
   },
+
+ 
   Mutation: {
     registerUser: async (_, { username, email, password }) => {
       // check if user exixts
