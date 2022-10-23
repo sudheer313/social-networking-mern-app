@@ -119,7 +119,9 @@ const resolvers = {
           const updatedPost = await Post.findByIdAndUpdate(postId, {
             $addToSet: { likes: context.user._id },
             $pull: { dislikes: context.user._id },
+            $inc: { likesCount: 1 },
           });
+
           console.log(updatedPost);
           return true;
         } catch (error) {

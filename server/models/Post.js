@@ -18,6 +18,10 @@ const postSchema = new Schema(
       required: [true, "description is required"],
       maxLength: [800, "Must be no more than 800 characters"],
     },
+    likesCount: {
+      type: Number,
+      default: 0,
+    },
     likes: {
       type: [String],
       default: [],
