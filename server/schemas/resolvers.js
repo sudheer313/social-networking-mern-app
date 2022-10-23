@@ -3,6 +3,8 @@ const { ApolloError, AuthenticationError } = require("apollo-server-express");
 const bcryptjs = require("bcryptjs");
 const { signToken } = require("../utils/auth");
 const Post = require("../models/Post");
+const Comment = require("../models/Comment");
+
 const resolvers = {
   Query: {
     helloWorld: (parent, args, context) => {
@@ -49,10 +51,17 @@ const resolvers = {
         throw new ApolloError("error.message");
       }
     },
-  
+    getComments: async (parent, {postId}) => {
+      try {
+        return await Comment.find({
+          postId,
+        });
+      } catch (error) {
+        throw new ApolloError("error.message");
+      }
+    },
   },
 
- 
   Mutation: {
     registerUser: async (_, { username, email, password }) => {
       // check if user exixts
@@ -169,6 +178,68 @@ const resolvers = {
           if (post.authorId == context.user._id) {
             const deletePost = await Post.findByIdAndDelete(postId);
             return deletePost;
+          }
+
+          throw new ApolloError(
+            "you are not authorised to delete this post,only owner can delete it"
+          );
+        } catch (error) {
+          throw new ApolloError(error.message);
+        }
+      }
+      throw new ApolloError(
+        "you are not authorised to delete this post, please authenticate"
+      );
+    },
+    login: async (_, { email, password }) => {
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new AuthenticationError("No user with this email found!");
+      }
+
+      // compare the incoming password with the hashed password
+      const isMatch = await bcryptjs.compare(password, user.password);
+      if (!isMatch) {
+        throw new AuthenticationError("Invalid password credintials");
+      }
+
+      //Generate Token
+      const token = signToken(user);
+
+      return {
+        _id: user.id,
+        username: user.username,
+        email: user.email,
+        token,
+      };
+    },
+    addComment: async (_, { postId, description }, context) => {
+      if (context.user) {
+        try {
+          const comment = await Comment.create({
+            authorId: context.user._id,
+            postId,
+            description,
+          });
+          return comment;
+        } catch (error) {
+          throw new ApolloError(error.message);
+        }
+      }
+      throw new ApolloError(
+        "you are not authorised to create this resource, please authenticate"
+      );
+    },
+    deleteComment: async (parent, { commentId }, context) => {
+      if (context.user) {
+        try {
+          const comment = await Comment.findById(commentId);
+          if (!comment) {
+            throw new ApolloError("comment does not exists");
+          }
+          if (comment.authorId == context.user._id) {
+            const deleteComment = await Comment.findByIdAndDelete(commentId);
+            return deleteComment;
           }
 
           throw new ApolloError(

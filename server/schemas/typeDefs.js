@@ -18,13 +18,21 @@ const typeDefs = gql`
     dislikes: [String]!
     likesCount: Int!
   }
+
+  type Comment {
+    _id: ID!
+    authorId: ID!
+    postId: ID!
+    description: String!
+  }
   type Query {
     helloWorld: String
     getAllUsers: [User]
     getUser(userId: ID!): User
     getAllPosts: [Post]
-    getAllTrendingPosts:[Post]
+    getAllTrendingPosts: [Post]
     getPost(postId: ID!): Post
+    getComments(postId:ID!):[Comment!]
   }
   type Mutation {
     registerUser(username: String!, email: String!, password: String!): User!
@@ -33,7 +41,8 @@ const typeDefs = gql`
     deletePost(postId: ID!): Post!
     likePost(postId: ID!): Boolean
     dislikePost(postId: ID!): Boolean
-
+    addComment(postId: ID!, description: String!): Comment!
+    deleteComment(commentId: ID!): Comment!
   }
 `;
 
