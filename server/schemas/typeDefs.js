@@ -6,7 +6,11 @@ const typeDefs = gql`
     username: String!
     email: String!
     password: String!
-    token: ID!
+    token: ID
+    postsCount: Int!
+    bio: String
+    followers: Int!
+    followingUsers: [String]!
   }
 
   type Post {
@@ -33,7 +37,7 @@ const typeDefs = gql`
     getAllTrendingPosts: [Post]
     getPost(postId: ID!): Post
     getComments(postId: ID!): [Comment!]
-    getPostBysearch(searchQuery:String!):[Post]
+    getPostBysearch(searchQuery: String!): [Post]
   }
   type Mutation {
     registerUser(username: String!, email: String!, password: String!): User!
@@ -44,6 +48,7 @@ const typeDefs = gql`
     dislikePost(postId: ID!): Post!
     addComment(postId: ID!, description: String!): Comment!
     deleteComment(commentId: ID!): Comment!
+    followUser(followUserId: ID!): User!
   }
 `;
 

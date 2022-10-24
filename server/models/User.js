@@ -23,6 +23,13 @@ const userSchema = new Schema({
   bio:{
     type:String,
     maxLength:[500, "must be no more than characters"]
+  },
+  followers:{
+    type :Number,
+    default:0
+  },
+  followingUsers:{
+    type:[String],
   }
 });
 

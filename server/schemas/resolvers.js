@@ -271,6 +271,29 @@ const resolvers = {
         "you are not authorised to delete this post, please authenticate"
       );
     },
+    followUser: async (parent, { followUserId }, context) => {
+      if (context.user) {
+        try {
+          const updatedUser = await User.findByIdAndUpdate(
+            context.user._id,
+            {
+              $addToSet: { followingUsers: followUserId },
+            },
+            { new: true }
+          );
+
+          await User.findByIdAndUpdate(followUserId, {
+            $inc: { followers: 1 },
+          });
+          return updatedUser;
+        } catch (error) {
+          throw new ApolloError(error.message);
+        }
+      }
+      throw new ApolloError(
+        "you are not authorised to create this user, please authenticate first"
+      );
+    },
   },
 };
 
