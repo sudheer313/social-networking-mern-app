@@ -123,6 +123,9 @@ const resolvers = {
             title,
             description,
           });
+          await User.findByIdAndUpdate(context.user._id, {
+            $inc: { postsCount: 1 },
+          });
           return post;
         } catch (error) {
           throw new ApolloError(error.message);
@@ -179,6 +182,10 @@ const resolvers = {
           }
           if (post.authorId == context.user._id) {
             const deletePost = await Post.findByIdAndDelete(postId);
+
+            await User.findByIdAndUpdate(context.user._id, {
+              $inc: { postsCount: -1 },
+            });
             return deletePost;
           }
 

@@ -16,6 +16,10 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Password is required"],
   },
+  postsCount:{
+    type:Number,
+    default:0
+  }
 });
 
 module.exports = model("User", userSchema);
