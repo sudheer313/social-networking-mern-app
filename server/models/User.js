@@ -19,6 +19,10 @@ const userSchema = new Schema({
   postsCount:{
     type:Number,
     default:0
+  },
+  bio:{
+    type:String,
+    maxLength:[500, "must be no more than characters"]
   }
 });
 
