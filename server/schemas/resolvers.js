@@ -51,7 +51,7 @@ const resolvers = {
         throw new ApolloError("error.message");
       }
     },
-    getComments: async (parent, {postId}) => {
+    getComments: async (parent, { postId }) => {
       try {
         return await Comment.find({
           postId,
@@ -142,7 +142,7 @@ const resolvers = {
           });
 
           console.log(updatedPost);
-          return true;
+          return updatedPost;
         } catch (error) {
           throw new ApolloError(error.message);
         }
@@ -154,12 +154,14 @@ const resolvers = {
     dislikePost: async (parent, { postId }, context) => {
       if (context.user) {
         try {
+          const post = await Post.findById(postId);
           const updatedPost = await Post.findByIdAndUpdate(postId, {
             $addToSet: { dislikes: context.user._id },
             $pull: { likes: context.user._id },
+            $inc: { likesCount: post.likesCount === 0 ? 0 : -1 },
           });
           console.log(updatedPost);
-          return true;
+          return updatedPost;
         } catch (error) {
           throw new ApolloError(error.message);
         }
