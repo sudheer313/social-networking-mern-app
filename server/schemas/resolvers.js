@@ -60,6 +60,15 @@ const resolvers = {
         throw new ApolloError("error.message");
       }
     },
+    getPostBysearch: async (parent, { searchQuery }) => {
+      try {
+        return await Post.find({
+          title: { $regex: searchQuery, $options: "i" },
+        });
+      } catch (error) {
+        throw new ApolloError("error.message");
+      }
+    },
   },
 
   Mutation: {
