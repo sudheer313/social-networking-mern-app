@@ -49,6 +49,7 @@ const typeDefs = gql`
     addComment(postId: ID!, description: String!): Comment!
     deleteComment(commentId: ID!): Comment!
     followUser(followUserId: ID!): User!
+    unfollowUser(unfollowUserId: ID!): User!
   }
 `;
 

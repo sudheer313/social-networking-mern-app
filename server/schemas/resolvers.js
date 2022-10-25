@@ -294,6 +294,29 @@ const resolvers = {
         "you are not authorised to create this user, please authenticate first"
       );
     },
+    unfollowUser: async (parent, { unfollowUserId }, context) => {
+      if (context.user) {
+        try {
+          const updatedUser = await User.findByIdAndUpdate(
+            context.user._id,
+            {
+              $pull: { followingUsers: unfollowUserId },
+            },
+            { new: true }
+          );
+
+          await User.findByIdAndUpdate(unfollowUserId, {
+            $inc: { followers: -1 },
+          });
+          return updatedUser;
+        } catch (error) {
+          throw new ApolloError(error.message);
+        }
+      }
+      throw new ApolloError(
+        "you are not authorised to unfolloe this user, please authenticate first"
+      );
+    },
   },
 };
 

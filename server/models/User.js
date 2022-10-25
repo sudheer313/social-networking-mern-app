@@ -16,21 +16,21 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Password is required"],
   },
-  postsCount:{
-    type:Number,
-    default:0
+  postsCount: {
+    type: Number,
+    default: 0,
   },
-  bio:{
-    type:String,
-    maxLength:[500, "must be no more than characters"]
+  bio: {
+    type: String,
+    maxLength: [500, "must be no more than characters"],
   },
-  followers:{
-    type :Number,
-    default:0
+  followers: {
+    type: Number,
+    default: 0,
   },
-  followingUsers:{
-    type:[String],
-  }
+  followingUsers: {
+    type: [String],
+  },
 });
 
 module.exports = model("User", userSchema);
