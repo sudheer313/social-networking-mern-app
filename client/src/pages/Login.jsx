@@ -1,26 +1,42 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
+import { saveToken } from "../utils/auth";
 
 const initialValues = {
   email: "",
   password: "",
 };
 
-const onSubmit = (values, onSubmitProps) => {
-  console.log(values);
-  onSubmitProps.resetForm();
-};
-
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email format")
     .required("email is required"),
-  password: Yup.string().required("password is required").min(10),
+  password: Yup.string().required("password is required").min(8),
 });
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [login, { error, loading }] = useMutation(LOGIN_USER);
+
+  const onSubmit = async (values, onSubmitProps) => {
+    const { data } = await login({
+      variables: { ...values },
+    });
+    console.log(data);
+    saveToken(data.login.token);
+    onSubmitProps.resetForm();
+    navigate("/");
+  };
+  if (loading) {
+    console.log("Request lOading");
+  }
+  if (error) {
+    console.log("error request");
+  }
   return (
     <div>
       <div className="text-center pt-4 flex flex-col items-center justify-center h-screen">
