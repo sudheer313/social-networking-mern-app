@@ -1,10 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-const signup = () => {
+const initialValues = {
+  username: "",
+  email: "",
+  password: "",
+};
+
+const onSubmit = (values,onSubmitProps) => {
+  console.log(values);
+  onSubmitProps.resetForm();
+};
+
+const validationSchema = Yup.object({
+  username: Yup.string().required("username is required").min(6).max(30),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("email is required"),
+  password: Yup.string().required("password is required").min(10),
+});
+
+const Signup = () => {
   return (
     <div className="text-center pt-4 flex flex-col items-center self-auto ">
-      <h1 className="text-3xl pb-4 ">Social Networking App</h1>
+      <h1 className="text-3xl pb-4 ">Namasthe</h1>
       <h3 className="text-2xl pb-2"> SignUp</h3>
       <p className="text-gray-500">
         Already have a Account?
@@ -12,22 +33,57 @@ const signup = () => {
           Login
         </Link>
       </p>
-  
-        <form className="flex flex-col gap-4">
-          <input type="text" placeholder="Username *"
-          className="border p-3 rounded-lg w-80"
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        <Form className="flex flex-col gap-4">
+          <Field
+            type="text"
+            name="username"
+            placeholder="username *"
+            className="border p-3 rounded-lg w-80"
           />
-          <input type="e-mail" placeholder="E-mail *"
-          className="border p-3 rounded-lg w-80"
+          <ErrorMessage name="username">
+            {(errorMessage) => (
+              <div className="text-red-600"> {errorMessage}</div>
+            )}
+          </ErrorMessage>
+
+          <Field
+            type="e-mail"
+            name="email"
+            placeholder="email *"
+            className="border p-3 rounded-lg w-80"
           />
-          <input type="password" placeholder="Password *"
-          className="border p-3 rounded-lg w-80"
+          <ErrorMessage name="email">
+            {(errorMessage) => (
+              <div className="text-red-600"> {errorMessage}</div>
+            )}
+          </ErrorMessage>
+
+          <Field
+            type="password"
+            name="password"
+            placeholder="Password *"
+            className="border p-3 rounded-lg w-80"
           />
-          <button type="submit" className="border p-3 bg-blue-600 text-white w-80">SIGNUP</button>
-        </form>
-   
+          <ErrorMessage name="password">
+            {(errorMessage) => (
+              <div className="text-red-600"> {errorMessage}</div>
+            )}
+          </ErrorMessage>
+          <button
+            type="submit"
+            className="border p-3 bg-blue-600 text-white w-80"
+          >
+            SIGNUP
+          </button>
+        </Form>
+      </Formik>
     </div>
   );
 };
 
-export default signup;
+export default Signup;
