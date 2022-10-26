@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
+import { saveToken } from "../utils/auth";
 
 const initialValues = {
   username: "",
@@ -9,20 +12,33 @@ const initialValues = {
   password: "",
 };
 
-const onSubmit = (values,onSubmitProps) => {
-  console.log(values);
-  onSubmitProps.resetForm();
-};
-
 const validationSchema = Yup.object({
   username: Yup.string().required("username is required").min(6).max(30),
   email: Yup.string()
     .email("Invalid email format")
     .required("email is required"),
-  password: Yup.string().required("password is required").min(10),
+  password: Yup.string().required("password is required").min(8),
 });
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [registerUser, { error, loading }] = useMutation(ADD_USER);
+
+  const onSubmit = async (values, onSubmitProps) => {
+    const { data } = await registerUser({
+      variables: { ...values },
+    });
+    console.log(data);
+    saveToken(data.registerUser.token);
+    onSubmitProps.resetForm();
+    navigate("/");
+  };
+  if (loading) {
+    console.log("Request lOading");
+  }
+  if (error) {
+    console.log("error request");
+  }
   return (
     <div className="text-center pt-4 flex flex-col items-center self-auto ">
       <h1 className="text-3xl pb-4 ">Namasthe</h1>
