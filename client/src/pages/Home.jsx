@@ -2,18 +2,33 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import { FiTrendingUp } from "react-icons/fi";
 import { MdAdd } from "react-icons/md";
-import TrendingPost from "../components/TrendingPost";
+
 import Post from "../components/Post";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALLPOSTS } from "../utils/queries";
-
+import { QUERY_ALLTRENDINGPOSTS } from "../utils/queries";
+import TrendingPost from "../components/TrendingPost";
 const Home = () => {
-  const { loading, error, data } = useQuery(QUERY_ALLPOSTS, {
+  const { loading, error, data } = useQuery(
+    QUERY_ALLPOSTS,
+
+    {
+      fetchPolicy: "no-cache",
+    }
+  );
+
+  const {
+    loading: trendLoader,
+    error: trendError,
+    data: trendData,
+  } = useQuery(QUERY_ALLTRENDINGPOSTS, {
     fetchPolicy: "no-cache",
   });
 
   const allPosts = data?.getAllPosts || []; //data.getAllPosts
 
+  const getallTrendingPosts = trendData?.getAllTrendingPosts || [];
+  console.log(getallTrendingPosts);
   if (loading) {
     console.log("Request loading", loading);
   }
@@ -50,10 +65,15 @@ const Home = () => {
             <h1>Trending Posts</h1>
           </div>
           <div className="">
-            <TrendingPost />
-            <TrendingPost />
-            <TrendingPost />
-            <TrendingPost />
+            {loading ? (
+              <div> Request is loading </div>
+            ) : (
+              <>
+                {getallTrendingPosts.map((trendPost) => (
+                  <TrendingPost key={trendPost._id} trendPost={trendPost} />
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>
