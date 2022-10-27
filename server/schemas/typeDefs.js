@@ -21,7 +21,9 @@ const typeDefs = gql`
     likes: [String]!
     dislikes: [String]!
     likesCount: Int!
-  }
+    author: User!
+    commentsCount: Int!
+    }
 
   type Comment {
     _id: ID!

@@ -318,6 +318,23 @@ const resolvers = {
       );
     },
   },
+
+  Post: {
+    author: async (parent) => {
+      try {
+        return await User.findOne({ _id: parent.authorId });
+      } catch (error) {
+        throw new ApolloError(error.message);
+      }
+    },
+    commentsCount: async (parent) => {
+      try {
+        return await Comment.find({ postId: parent._id }).count();
+      } catch (error) {
+        throw new ApolloError(error.message);
+      }
+    },
+  },
 };
 
 module.exports = resolvers;
