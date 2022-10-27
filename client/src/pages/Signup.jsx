@@ -33,12 +33,14 @@ const Signup = () => {
     onSubmitProps.resetForm();
     navigate("/");
   };
+
   if (loading) {
     console.log("Request lOading");
   }
   if (error) {
     console.log("error request");
   }
+  
   return (
     <div className="text-center pt-4 flex flex-col items-center self-auto ">
       <h1 className="text-3xl pb-4 ">Namasthe</h1>
