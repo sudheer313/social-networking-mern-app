@@ -16,10 +16,7 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Password is required"],
   },
-  postsCount: {
-    type: Number,
-    default: 0,
-  },
+
   bio: {
     type: String,
     maxLength: [500, "must be no more than characters"],

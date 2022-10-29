@@ -335,6 +335,15 @@ const resolvers = {
       }
     },
   },
+  User: {
+    postsCount: async (parent) => {
+      try {
+        return await Post.find({ authorId: parent._id }).count();
+      } catch (error) {
+        throw new ApolloError(error.message);
+      }
+    },
+  },
 };
 
 module.exports = resolvers;
