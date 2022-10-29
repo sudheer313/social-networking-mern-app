@@ -12,7 +12,7 @@ const TrendingPost = ({ trendPost }) => {
           alt="roboimgs"
           className="h-10 w-10 p-1 rounded-full cursor-pointer bg-slate-400"
         />
-        <h2>Michel</h2>
+        <h2>{trendPost.author.username}</h2>
       </div>
       <h1 className="my-2">🎉 {trendPost?.title} 🎉</h1>
       <div className="flex items-center justify-between gap-4">
@@ -22,7 +22,7 @@ const TrendingPost = ({ trendPost }) => {
         </div>
         <div className="flex items-center gap-4">
           <AiOutlineComment className="text-2xl" />
-          <span>80</span>
+          <span>{trendPost?.commentsCount}</span>
         </div>
       </div>
     </div>

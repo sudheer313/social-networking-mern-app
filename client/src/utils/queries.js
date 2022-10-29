@@ -10,6 +10,10 @@ const QUERY_ALLPOSTS = gql`
       likes
       dislikes
       likesCount
+      author {
+        username
+      }
+      commentsCount
     }
   }
 `;
@@ -24,6 +28,10 @@ const QUERY_ALLTRENDINGPOSTS = gql`
       likes
       dislikes
       likesCount
+      author {
+        username
+      }
+      commentsCount
     }
   }
 `;
@@ -80,5 +88,4 @@ export {
   QUERY_ALLTRENDINGPOSTS,
   QUERY_SINGLEUSER,
   QUERY_ALLUSERS,
-  
 };
