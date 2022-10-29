@@ -4,6 +4,10 @@ import { FiUserPlus } from "react-icons/fi";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import FindUser from "../components/FindUser";
+import { useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
+import { ADD_POST } from "../utils/mutations";
+import { saveToken } from "../utils/auth";
 
 const initialValues = {
   title: "",
@@ -16,8 +20,22 @@ const validationSchema = Yup.object({
 });
 
 const CreatePost = () => {
+  const navigate = useNavigate();
+  const [createPost, { error, loading }] = useMutation(ADD_POST);
   const onSubmit = async (values, onSubmitProps) => {
-    console.log(values);
+    const { data } = await createPost({
+      variables: { ...values },
+    });
+    console.log(data);
+    saveToken(data.login.token);
+    onSubmitProps.resetForm();
+    navigate("/");
+    if (loading) {
+      console.log("Request loading");
+    }
+    if (error) {
+      console.log("error request");
+    }
   };
 
   return (

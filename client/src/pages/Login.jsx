@@ -32,7 +32,7 @@ const Login = () => {
     navigate("/");
   };
   if (loading) {
-    console.log("Request lOading");
+    console.log("Request loading");
   }
   if (error) {
     console.log("error request");
