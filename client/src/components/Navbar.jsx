@@ -8,7 +8,7 @@ const Navbar = () => {
     <>
       <nav className="grid grid-cols-2 md:grid-cols-3 p-5 md:px-0">
         <div className="flex items-center md:text-2xl ">
-          <h1 className="text-slate-500 font-bold">NAMASTHE</h1>
+          <h1 className="text-slate-500 font-bold">Lets Connect</h1>
         </div>
         <div className="md:flex items-center md:border-2 rounded-full py-2 md:shadow-sm hidden">
           <input

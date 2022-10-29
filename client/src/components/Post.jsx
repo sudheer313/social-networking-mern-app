@@ -9,7 +9,7 @@ const Post = ({ post }) => {
         <div className="flex flex-col gap-20">
           <div className="flex flex-col items-center gap-2">
             <AiOutlineHeart className="text-2xl" />
-            <span>{post?.likesCount}</span>
+            <span>{post?.likes.length}</span>
           </div>
           <div className="flex flex-col items-center gap-2">
             <AiOutlineComment className="text-2xl" />
