@@ -1,13 +1,19 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { MdAdd } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PostList from "../components/PostList";
 import UserBio from "../components/UserBio";
 import FindUser from "../components/FindUser";
 import { FiUserPlus } from "react-icons/fi";
 
+
 const UserProfile = () => {
+  const location = useLocation();
+  const userId = location.pathname.split("/")[2];
+ 
+  
+
   return (
     <div className="md:container md:mx-auto md:px-40">
       <Navbar />
@@ -25,7 +31,7 @@ const UserProfile = () => {
         </div>
         <div className="mx-4 md:mx-0 md:flex-col md:basis-1/4">
           <div className="flex items-center gap-4 border p-4 rounded-md">
-            <UserBio />
+            <UserBio userId={userId}/>
           </div>
           <div className="hidden md:flex items-center justify-center gap-4 border p-4 my-2 rounded-md">
             <FiUserPlus className="text-xl" />
