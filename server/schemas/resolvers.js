@@ -69,6 +69,13 @@ const resolvers = {
         throw new ApolloError("error.message");
       }
     },
+    getRandomUsers: async (parent, args) => {
+      try {
+        return await User.aggregate([{ $sample: { size: 5 } }]);
+      } catch (error) {
+        throw new ApolloError(error.message);
+      }
+    },
   },
 
   Mutation: {

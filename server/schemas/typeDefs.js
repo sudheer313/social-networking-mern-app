@@ -40,6 +40,7 @@ const typeDefs = gql`
     getPost(postId: ID!): Post
     getComments(postId: ID!): [Comment!]
     getPostBysearch(searchQuery: String!): [Post]
+    getRandomUsers:[User]
   }
   type Mutation {
     registerUser(username: String!, email: String!, password: String!): User!
