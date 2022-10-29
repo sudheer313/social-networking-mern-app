@@ -42,8 +42,16 @@ const Navbar = () => {
             className="h-7 w-7 p-1 cursor-pointer md:hidden"
             onClick={() => setToggleSearch((prev) => !prev)}
           />
-          <Link to="/signup">SIGN UP</Link>
-          <Link to="/login">LOGIN</Link>
+          {window.localStorage.getItem("id_token") ? (
+            <>
+              <Link to="/login">Log out</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/signup">SIGN UP</Link>
+              <Link to="/login">LOGIN</Link>
+            </>
+          )}
         </div>
       </nav>
       <form

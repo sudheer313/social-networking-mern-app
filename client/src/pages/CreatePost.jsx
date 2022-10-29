@@ -27,7 +27,6 @@ const CreatePost = () => {
       variables: { ...values },
     });
     console.log(data);
-    saveToken(data.login.token);
     onSubmitProps.resetForm();
     navigate("/");
     if (loading) {
