@@ -50,16 +50,11 @@ const QUERY_SINGLEUSER = gql`
   }
 `;
 
-const QUERY_ALLUSERS = gql`
-  query Query($userId: ID!) {
-    getUser(userId: $userId) {
+const QUERY_RANDOMUSERS = gql`
+  query GetRandomUsers {
+    getRandomUsers {
       _id
       username
-      email
-      postsCount
-      bio
-      followers
-      followingUsers
     }
   }
 `;
@@ -87,5 +82,5 @@ export {
   QUERY_ALLPOSTS,
   QUERY_ALLTRENDINGPOSTS,
   QUERY_SINGLEUSER,
-  QUERY_ALLUSERS,
+  QUERY_RANDOMUSERS,
 };
