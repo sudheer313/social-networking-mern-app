@@ -1,41 +1,10 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import { FiTrendingUp } from "react-icons/fi";
 import { MdAdd } from "react-icons/md";
+import TrendingPostList from "../components/TrendingPostList";
+import PostList from "../components/PostList";
 
-import Post from "../components/Post";
-import { useQuery } from "@apollo/client";
-import { QUERY_ALLPOSTS } from "../utils/queries";
-import { QUERY_ALLTRENDINGPOSTS } from "../utils/queries";
-import TrendingPost from "../components/TrendingPost";
 const Home = () => {
-  const { loading, error, data } = useQuery(
-    QUERY_ALLPOSTS,
-
-    {
-      fetchPolicy: "no-cache",
-    }
-  );
-
-  const {
-    loading: trendLoader,
-    error: trendError,
-    data: trendData,
-  } = useQuery(QUERY_ALLTRENDINGPOSTS, {
-    fetchPolicy: "no-cache",
-  });
-
-  const allPosts = data?.getAllPosts || []; //data.getAllPosts
-
-  const getallTrendingPosts = trendData?.getAllTrendingPosts || [];
-  console.log(getallTrendingPosts);
-  if (loading) {
-    console.log("Request loading", loading);
-  }
-  if (error) {
-    console.log("error request", error);
-  }
-
   return (
     <div className="md:container md:mx-auto md:px-40">
       <Navbar />
@@ -47,35 +16,9 @@ const Home = () => {
               <h1>NEW POST</h1>
             </div>
           </div>
-          <div className="">
-            {loading ? (
-              <div> Request is loading </div>
-            ) : (
-              <>
-                {allPosts.map((post) => (
-                  <Post key={post._id} post={post} />
-                ))}
-              </>
-            )}
-          </div>
+          <PostList />
         </div>
-        <div className="hidden md:inline-flex md:flex-col md:basis-1/4">
-          <div className="flex items-center gap-4 border p-4 rounded-md">
-            <FiTrendingUp />
-            <h1>Trending Posts</h1>
-          </div>
-          <div className="">
-            {loading ? (
-              <div> Request is loading </div>
-            ) : (
-              <>
-                {getallTrendingPosts.map((trendPost) => (
-                  <TrendingPost key={trendPost._id} trendPost={trendPost} />
-                ))}
-              </>
-            )}
-          </div>
-        </div>
+        <TrendingPostList />
       </div>
     </div>
   );
