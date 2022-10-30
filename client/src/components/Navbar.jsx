@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
+import { loggedIn, logout } from "../utils/auth";
 
 const Navbar = () => {
   const [toggleSearch, setToggleSearch] = useState(false);
@@ -14,6 +15,10 @@ const Navbar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate("/search?" + new URLSearchParams({ search }));
+  };
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
 
   return (
@@ -42,9 +47,12 @@ const Navbar = () => {
             className="h-7 w-7 p-1 cursor-pointer md:hidden"
             onClick={() => setToggleSearch((prev) => !prev)}
           />
-          {window.localStorage.getItem("id_token") ? (
+          {loggedIn() ? (
             <>
-              <Link to="/login">Log out</Link>
+              <div className="cursor-pointer" onClick={handleLogout}>
+                {" "}
+                LOGOUT{" "}
+              </div>
             </>
           ) : (
             <>
