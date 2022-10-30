@@ -3,14 +3,11 @@ import Navbar from "../components/Navbar";
 import { MdAdd } from "react-icons/md";
 import { Link, useSearchParams } from "react-router-dom";
 import TrendingPostList from "../components/TrendingPostList";
-import PostList from "../components/PostList";
+import PostsBySearch from "../components/PostsBySearch";
 
 const Search = () => {
   const [search] = useSearchParams();
-
-  if (search.get("search") && search.get("search").length > 0) {
-    console.log(search.get("search"));
-  }
+  const searchString = search.get("search") || "";
 
   return (
     <div className="md:container md:mx-auto md:px-40">
@@ -25,11 +22,8 @@ const Search = () => {
               </div>
             </Link>
           </div>
-          <div className="flex flex-col items-center pt-4">
-            <h1 className="text-2xl">Showing results for "something"</h1>
-            <p className="text-xl">0 results found</p>
-          </div>
-          <PostList />
+
+          <PostsBySearch searchQuery={searchString} />
         </div>
         <TrendingPostList />
       </div>

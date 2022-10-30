@@ -59,28 +59,34 @@ const QUERY_RANDOMUSERS = gql`
   }
 `;
 
-// const QUERY_GETPOSTBYSEARCH = gql`
-// getPostBysearch(searchQuery: $searchQuery) {
-//   _id
-//   authorId
-//   title
-//   description
-//   likes
-//   dislikes
-//   likesCount
-//   author {
-//     username
-//     email
-//     postsCount
-//   }
-//   commentsCount
-// }
-// }
-// `;
+const QUERY_POSTBYSEARCH = gql`
+  query GetPostBysearch($searchQuery: String!) {
+    getPostBysearch(searchQuery: $searchQuery) {
+      _id
+      authorId
+      title
+      description
+      likes
+      dislikes
+      likesCount
+      author {
+        _id
+        username
+        email
+        postsCount
+        bio
+        followers
+        followingUsers
+      }
+      commentsCount
+    }
+  }
+`;
 
 export {
   QUERY_ALLPOSTS,
   QUERY_ALLTRENDINGPOSTS,
   QUERY_SINGLEUSER,
   QUERY_RANDOMUSERS,
+  QUERY_POSTBYSEARCH,
 };

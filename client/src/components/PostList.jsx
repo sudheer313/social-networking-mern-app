@@ -3,7 +3,7 @@ import Post from "../components/Post";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALLPOSTS } from "../utils/queries";
 
-const PostList = () => {
+const PostList = ({ postBySearch }) => {
   const { loading, error, data } = useQuery(
     QUERY_ALLPOSTS,
 
