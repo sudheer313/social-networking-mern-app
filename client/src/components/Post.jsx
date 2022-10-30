@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiOutlineComment } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Post = ({ post }) => {
   return (
@@ -24,7 +25,9 @@ const Post = ({ post }) => {
             alt="roboimgs"
             className="h-10 w-10 p-1 rounded-full cursor-pointer bg-slate-400"
           />
-          <h2>{post?.author.username}</h2>
+          <Link to={`/users/${post.authorId}`}>
+            <h2 className="hover:underline">{post?.author.username}</h2>
+          </Link>
         </div>
         <div className="py-4">🎉 {post?.title} 🎉</div>
         <div>{post?.description}</div>
