@@ -4,10 +4,10 @@ import { FiUserPlus } from "react-icons/fi";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import FindUser from "../components/FindUser";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { ADD_POST } from "../utils/mutations";
-import { saveToken } from "../utils/auth";
+import { QUERY_RANDOMUSERS } from "../utils/queries";
 
 const initialValues = {
   title: "",
@@ -22,6 +22,20 @@ const validationSchema = Yup.object({
 const CreatePost = () => {
   const navigate = useNavigate();
   const [createPost, { error, loading }] = useMutation(ADD_POST);
+
+  const {
+    loading: randomUserLoading,
+    error: randomUsersError,
+    data: randomUserData,
+  } = useQuery(QUERY_RANDOMUSERS, {
+    fetchPolicy: "nocache",
+  });
+  const randomUsers = randomUserData?.getRandomUsers || [];
+
+  if (randomUsersError) {
+    console.log("error request", randomUsersError);
+  }
+
   const onSubmit = async (values, onSubmitProps) => {
     const { data } = await createPost({
       variables: { ...values },
@@ -85,11 +99,15 @@ const CreatePost = () => {
             <h1>Find Others</h1>
           </div>
           <div className="flex flex-col gap-4 border p-4 my-3 rounded-md cursor-pointer">
-            <FindUser />
-            <FindUser />
-            <FindUser />
-            <FindUser />
-            <FindUser />
+            {randomUserLoading ? (
+              <div> Request is loading </div>
+            ) : (
+              <>
+                {randomUsers.map((randomUser) => (
+                  <FindUser key={randomUser._id} randomUser={randomUser} />
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>
