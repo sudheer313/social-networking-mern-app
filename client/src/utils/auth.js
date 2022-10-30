@@ -13,7 +13,7 @@ const logout = () => {
 };
 
 const getProfile = () => {
-  return decode(this.getToken);
+  return decode(localStorage.getItem("id_token"));
 };
 
 export { saveToken, loggedIn, logout, getProfile };

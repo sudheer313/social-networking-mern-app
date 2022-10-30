@@ -3,6 +3,7 @@ import { FiTrendingUp } from "react-icons/fi";
 import TrendingPost from "../components/TrendingPost";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALLTRENDINGPOSTS } from "../utils/queries";
+import { Link } from "react-router-dom";
 
 const TrendingPostList = () => {
   const { loading, error, data } = useQuery(QUERY_ALLTRENDINGPOSTS, {
@@ -26,7 +27,9 @@ const TrendingPostList = () => {
         ) : (
           <>
             {getallTrendingPosts.map((trendPost) => (
-              <TrendingPost key={trendPost._id} trendPost={trendPost} />
+              <Link to={`/posts/${trendPost?._id}`} key={trendPost._id}>
+                <TrendingPost  trendPost={trendPost} />
+              </Link>
             ))}
           </>
         )}

@@ -2,6 +2,7 @@ import React from "react";
 import Post from "../components/Post";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALLPOSTS } from "../utils/queries";
+import { Link } from "react-router-dom";
 
 const PostList = ({ postBySearch }) => {
   const { loading, error, data } = useQuery(
@@ -24,7 +25,9 @@ const PostList = ({ postBySearch }) => {
       ) : (
         <>
           {allPosts.map((post) => (
-            <Post key={post._id} post={post} />
+            <Link to={`/posts/${post?._id}`} key={post._id}>
+              <Post  post={post} />
+            </Link>
           ))}
         </>
       )}

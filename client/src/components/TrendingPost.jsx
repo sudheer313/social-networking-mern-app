@@ -3,7 +3,6 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { AiOutlineComment } from "react-icons/ai";
 
 const TrendingPost = ({ trendPost }) => {
-  console.log(trendPost);
   return (
     <div className="flex flex-col gap-4 border p-4 my-3 rounded-md cursor-pointer">
       <div className="flex items-center gap-4">
