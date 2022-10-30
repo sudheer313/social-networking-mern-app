@@ -76,6 +76,13 @@ const resolvers = {
         throw new ApolloError(error.message);
       }
     },
+    getPostsByUser: async (parent, { userId }) => {
+      try {
+        return await Post.find({ authorId: userId });
+      } catch (error) {
+        throw new ApolloError(error.message);
+      }
+    },
   },
 
   Mutation: {
