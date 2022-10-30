@@ -105,6 +105,30 @@ const QUERY_POSTBYUSER = gql`
   }
 `;
 
+const QUERY_SINGLEPOST = gql`
+  query GetPost($postId: ID!) {
+    getPost(postId: $postId) {
+      _id
+      authorId
+      title
+      description
+      dislikes
+      likes
+      commentsCount
+      likesCount
+      author {
+        username
+        _id
+        email
+        postsCount
+        bio
+        followers
+        followingUsers
+      }
+    }
+  }
+`;
+
 export {
   QUERY_ALLPOSTS,
   QUERY_ALLTRENDINGPOSTS,
@@ -112,4 +136,5 @@ export {
   QUERY_RANDOMUSERS,
   QUERY_POSTBYSEARCH,
   QUERY_POSTBYUSER,
+  QUERY_SINGLEPOST,
 };

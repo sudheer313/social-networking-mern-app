@@ -12,6 +12,7 @@ import { setContext } from "@apollo/client/link/context";
 import CreatePost from "./pages/CreatePost";
 import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
+import PostView from "./pages/PostView";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:5000/graphql",
@@ -45,6 +46,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/posts">
               <Route path="create" element={<CreatePost />} />
+              <Route path=":postId" element={<PostView />} />
             </Route>
             <Route path="/users">
               <Route path=":userId" element={<UserProfile />} />
