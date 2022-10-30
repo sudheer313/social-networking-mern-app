@@ -25,37 +25,47 @@ In order to be able to run the app after being cloned you need to run, using nod
 npm i
 ```
 
-Once node is installed, log in to mysql and run the following commands to initiate the database:
+Once node is installed application can be started using :
 
 ```
-source db/schema.sql
+npm run develop
 ```
 
-Then to populate seed data and run it the application you can use
+## Live application link heroku
 
-```
-npm run seed
-node server.js
-```
-
-## Live application link
-
-You can view the live application at: https://beerandpizza.herokuapp.com/
+You can view the live application at:https://letsconnectt.herokuapp.com/
 
 ## GitHub
 
-To visit our GitHub repository visit: https://github.com/Ishan-Wijesingha99/Beer-Bar-And-Pizza
+To visit our GitHub repository visit: https://github.com/sudheer313/social-networking-mern-app
+
+### Repo
+
+sudheer313/social-networking-mern-app
+
+## Screenshots of Application
+
+![landing page before signing in](./utils/Landingpage.png)<br/>
+![create post ](./utils/createnewpost_aftersignin.png)<br/>
+![only post owner can delete his post](./utils/delete_post.png)<br/>
+![Postcount and followers count](./utils/display_postcount_Followers.png)<br/>
+![Landing page after logging in](./utils/landingPost_afterlogin.png)<br/>
+![Login page](./utils/LoginPage.png)<br/>
+![display users randomly](./utils/randomusers_display.png)<br/>
+![Search post by title](./utils/searchpost_basedontitileName.png)<br/>
+![signup page](./utils/signup_page.png)<br/>
+![Trending post based on like count](./utils/trendingpost_basedonlikecount.png)
+
 
 ## References
 
-https://www.freecodecamp.org/news/graphql-for-front-end-developers/
-https://www.freecodecamp.org/news/learn-how-to-use-react-and-graphql-to-make-a-full-stack-social-network/
-https://www.youtube.com/watch?v=n1mdAPFq2Os
-https://github.com/ihtasham42/social-media-app
+https://www.freecodecamp.org/news/graphql-for-front-end-developers/<br/>
+https://www.freecodecamp.org/news/learn-how-to-use-react-and-graphql-to-make-a-full-stack-social-network/<br/>
+https://www.youtube.com/watch?v=n1mdAPFq2Os<br/>
+https://github.com/ihtasham42/social-media-app<br/>
 https://tailwindui.com/documentation
 
 ## Contributor
 
 Sudheer Kandula
 
-## Screenshots of Application
