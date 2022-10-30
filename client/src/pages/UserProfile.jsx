@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import { MdAdd } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
-import PostList from "../components/PostList";
+import PostsByUser from "../components/PostsByUser";
 import UserBio from "../components/UserBio";
 import FindUser from "../components/FindUser";
 import { FiUserPlus } from "react-icons/fi";
@@ -36,7 +36,7 @@ const UserProfile = () => {
               </div>
             </Link>
           </div>
-          <PostList />
+          <PostsByUser userId ={userId} />
         </div>
         <div className="mx-4 md:mx-0 md:flex-col md:basis-1/4">
           <div className="flex items-center gap-4 border p-4 rounded-md">
