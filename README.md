@@ -45,6 +45,7 @@ sudheer313/social-networking-mern-app
 
 ## Screenshots of Application
 
+![Mobile-First](./utils/Mobilefirst.png)<br/>
 ![landing page before signing in](./utils/Landingpage.png)<br/>
 ![create post ](./utils/createnewpost_aftersignin.png)<br/>
 ![only post owner can delete his post](./utils/delete_post.png)<br/>
@@ -56,7 +57,6 @@ sudheer313/social-networking-mern-app
 ![signup page](./utils/signup_page.png)<br/>
 ![Trending post based on like count](./utils/trendingpost_basedonlikecount.png)
 
-
 ## References
 
 https://www.freecodecamp.org/news/graphql-for-front-end-developers/<br/>
@@ -65,7 +65,21 @@ https://www.youtube.com/watch?v=n1mdAPFq2Os<br/>
 https://github.com/ihtasham42/social-media-app<br/>
 https://tailwindui.com/documentation
 
+## Challanges
+
+It was very tough decision to work solo and I had to figure out my final MVP structure first and need to practice class tutorials and assignments to figure out a way to develop a MERN Stack application. Time played a crucial role developing this application.
+
+## success
+
+I was able to develop a MVP(minimum viable product) where users can signup, log in , Post their veiws and delete aswell.<br/>
+I was able to learn GraphQL, React and also Tailwind CSS. <br/>
+
+I feel very happy and confident after developing this application.
+
+##
+
+I would like to
+
 ## Contributor
 
 Sudheer Kandula
-
